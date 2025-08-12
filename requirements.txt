@@ -1,0 +1,12 @@
+torch
+torchvision
+numpy
+scipy
+opencv-python
+matplotlib
+tqdm
+pathlib
+natsort
+segment-anything
+scikit-image
+pillow
