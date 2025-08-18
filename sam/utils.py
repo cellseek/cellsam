@@ -379,7 +379,6 @@ def memory_usage():
     Returns:
         dict: Memory usage statistics
     """
-    import gc
 
     import psutil
 
