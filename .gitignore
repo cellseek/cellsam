@@ -1,3 +1,4 @@
-__pycache__/
-/segmentation_results
+*.egg-info/
 *.jpg
+/segmentation_results
+__pycache__/

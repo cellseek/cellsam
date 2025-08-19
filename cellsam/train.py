@@ -14,9 +14,9 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, Dataset
 
-from sam.model import CellSAMNet
-from sam.transforms import normalize_img, resize_image
-from sam.utils import setup_logger
+from cellsam.model import CellSAMNet
+from cellsam.transforms import normalize_img, resize_image
+from cellsam.utils import setup_logger
 
 
 class CellSAMDataset(Dataset):

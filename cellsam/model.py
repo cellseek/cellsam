@@ -182,6 +182,8 @@ class CellSAM:
         self.device = assign_device(gpu=gpu, device=device)
 
         # Initialize network
+        import torch
+
         dtype = torch.bfloat16 if use_bfloat16 else torch.float32
         self.net = CellSAMNet(dtype=dtype).to(self.device)
 
@@ -257,6 +259,6 @@ class CellSAM:
             **kwargs: Additional training parameters
         """
         # Import training utilities when needed
-        from .train import train_model
+        from cellsam.train import train_model
 
         return train_model(self.net, train_data, test_data, **kwargs)
