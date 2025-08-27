@@ -1,4 +1,6 @@
 *.egg-info/
 *.jpg
-/segmentation_results
+segmentation_results/
 __pycache__/
+build/
+models/
