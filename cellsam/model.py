@@ -5,17 +5,13 @@ Core model implementation for CellSAM
 import logging
 import os
 from pathlib import Path
-from typing import List, Optional, Tuple, Union
 
-import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from segment_anything import sam_model_registry
 
 from .core import assign_device, run_inference
-from .transforms import resize_image
-from .utils import download_model, normalize_image
 
 logger = logging.getLogger(__name__)
 
@@ -169,7 +165,13 @@ class CellSAM:
     Simple interface for segmenting cellular images using SAM-based architecture
     """
 
-    def __init__(self, gpu=True, device=None, use_bfloat16=True):
+    def __init__(
+        self,
+        gpu=True,
+        device=None,
+        use_bfloat16=True,
+        model_path="weights/cpsam",
+    ):
         """
         Initialize CellSAM model
 
@@ -188,20 +190,15 @@ class CellSAM:
         self.net = CellSAMNet(dtype=dtype).to(self.device)
 
         # Load pretrained model
-        self.model_path = self._get_model_path()
-        if os.path.exists(self.model_path):
-            logger.info(f"Loading model from {self.model_path}")
-            self.net.load_model(self.model_path, device=self.device)
+        if os.path.exists(model_path):
+            logger.info(f"Loading model from {model_path}")
+            self.net.load_model(model_path, device=self.device)
         else:
-            logger.info(f"Downloading model cpsam")
-            download_model("cpsam", self.model_path)
-            self.net.load_model(self.model_path, device=self.device)
-
-    def _get_model_path(self):
-        """Get path for model file"""
-        model_dir = Path.home() / ".cellsam" / "models"
-        model_dir.mkdir(parents=True, exist_ok=True)
-        return model_dir / "cpsam"
+            # logger.info(f"Downloading model cpsam")
+            # download_model("cpsam", model_path)
+            # self.net.load_model(model_path, device=self.device)
+            logger.error(f"Model not found at {model_path}")
+            raise FileNotFoundError(f"Model not found at {model_path}")
 
     def segment(
         self,

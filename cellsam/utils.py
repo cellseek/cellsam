@@ -61,36 +61,36 @@ def setup_logger(name=None, level=logging.INFO):
     return logger
 
 
-def download_model(model_name, save_path, base_url=None):
-    """
-    Download pretrained model weights
+# def download_model(model_name, save_path, base_url=None):
+#     """
+#     Download pretrained model weights
 
-    Args:
-        model_name (str): Name of model to download
-        save_path (str or Path): Where to save the model
-        base_url (str): Base URL for model downloads
-    """
-    if base_url is None:
-        base_url = "https://huggingface.co/mouseland/cellpose-sam/resolve/main/"
+#     Args:
+#         model_name (str): Name of model to download
+#         save_path (str or Path): Where to save the model
+#         base_url (str): Base URL for model downloads
+#     """
+#     if base_url is None:
+#         base_url = "https://huggingface.co/mouseland/cellpose-sam/resolve/main/"
 
-    url = base_url + model_name
-    save_path = Path(save_path)
-    save_path.parent.mkdir(parents=True, exist_ok=True)
+#     url = base_url + model_name
+#     save_path = Path(save_path)
+#     save_path.parent.mkdir(parents=True, exist_ok=True)
 
-    logger = logging.getLogger(__name__)
-    logger.info(f"Downloading {model_name} from {url}")
+#     logger = logging.getLogger(__name__)
+#     logger.info(f"Downloading {model_name} from {url}")
 
-    # Download with progress bar
-    class DownloadProgressBar(tqdm):
-        def update_to(self, b=1, bsize=1, tsize=None):
-            if tsize is not None:
-                self.total = tsize
-            self.update(b * bsize - self.n)
+#     # Download with progress bar
+#     class DownloadProgressBar(tqdm):
+#         def update_to(self, b=1, bsize=1, tsize=None):
+#             if tsize is not None:
+#                 self.total = tsize
+#             self.update(b * bsize - self.n)
 
-    with DownloadProgressBar(unit="B", unit_scale=True, miniters=1) as t:
-        urllib.request.urlretrieve(url, save_path, reporthook=t.update_to)
+#     with DownloadProgressBar(unit="B", unit_scale=True, miniters=1) as t:
+#         urllib.request.urlretrieve(url, save_path, reporthook=t.update_to)
 
-    logger.info(f"Model saved to {save_path}")
+#     logger.info(f"Model saved to {save_path}")
 
 
 def load_image(image_path, channels=None):

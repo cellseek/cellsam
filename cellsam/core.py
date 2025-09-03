@@ -37,10 +37,6 @@ def assign_device(gpu=True, device=None):
         logger.info("Using GPU (CUDA)")
         return torch.device("cuda:0")
 
-    if torch.backends.mps.is_available():
-        logger.info("Using GPU (MPS)")
-        return torch.device("mps")
-
     logger.info("GPU not available, using CPU")
     return torch.device("cpu")
 

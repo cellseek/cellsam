@@ -50,6 +50,3 @@ dependencies = [
 [tool.setuptools]
 packages = ["cellsam"]
 include-package-data = true
-
-[tool.setuptools.package-data]
-cellsam = ["*.md", "*.txt"]

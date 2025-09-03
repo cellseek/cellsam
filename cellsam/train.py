@@ -2,11 +2,8 @@
 Training functionality for CellSAM
 """
 
-import logging
-import os
 import time
 from pathlib import Path
-from typing import Callable, Dict, List, Optional, Tuple
 
 import numpy as np
 import torch
